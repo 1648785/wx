@@ -10,12 +10,3 @@
 // +----------------------------------------------------------------------
 use think\facade\Route;
 
-// 获取当前计数
-Route::get('/api/count', 'index/getCount');
-
-// 更新计数，自增或者清零
-Route::post('/api/count', 'index/updateCount');
-
-Route::post('/api/setInfo', 'getInfo/setInfo');
-
-Route::post('/api/getticketnum', 'index/getTicketNum');

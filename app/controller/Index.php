@@ -22,23 +22,6 @@ class Index
      */
     public function lifeInfoStudent()
     {
-        // $data['infoUname'] = Request::param('infoUname');
-        // echo Request::param('infoActivity');
-        // echo Request::param('infoClass');
-        // echo Request::param('infoCode');
-        // echo Request::param('infoPhone');
-        // echo Request::param('infoType');
-        // if (Request::param('infoTime') == "1") {
-        //     echo "14:30-15:00";
-        // } elseif (Request::param('infoTime') == "2") {
-        //     echo "15:30-16:00";
-        // } else {
-        //     echo "16:30-17:00";
-        // }
-        // echo Request::param('infoTime');
-
-        // echo Request::param('infoDate')['date'];
-        // echo Request::param('infoDate')['dayOfWeek'];
         if (Db::table('lifeInfoStudent')->insert(Request::post())) {
             echo '预约成功';
         } else {
