@@ -77,5 +77,16 @@ class Index
         echo Request::param('infoCode');
         echo Request::param('infoPhone');
         echo Request::param('infoType');
+        if(Request::param('infoTime') == "1"){
+            echo "14:30-15:00";
+        }elseif(Request::param('infoTime') == "2"){
+            echo "15:30-16:00";
+        }else{
+            echo "16:30-17:00";
+        }
+        echo Request::param('infoTime');
+
+        echo Request::param('infoDate');
+
     }
 }
