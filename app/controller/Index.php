@@ -71,9 +71,11 @@ class Index
      */
     public function updateCount()
     {
-        $param = Request::param();
-        for($i=0;$i<count($param);$i++){
-            echo $param[$i]." ";
-        }
+        echo Request::param('infoUname');
+        echo Request::param('infoActivity');
+        echo Request::param('infoClass');
+        echo Request::param('infoCode');
+        echo Request::param('infoPhone');
+        echo Request::param('infoType');
     }
 }
