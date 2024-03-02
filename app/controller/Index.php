@@ -39,9 +39,9 @@ class Index
 
         // echo Request::param('infoDate')['date'];
         // echo Request::param('infoDate')['dayOfWeek'];
-        if(Db::table('lifeInfoStudent')->insert(Request::post())){
+        if (Db::table('lifeInfoStudent')->insert(Request::post())) {
             echo '预约成功';
-        }else{
+        } else {
             echo "预约失败";
         }
     }
@@ -51,7 +51,19 @@ class Index
      */
     public function getTicketNum($date)
     {
-        echo "日期：" . $date['date'];
-        echo "星期：" . $date['dayOfWeek'];
+        $num1 = 40 - Db::table('lifeInfoStudent')->where([
+            'infoTime' => '14:00-14:30',
+            'infoDate' => $date['date'] . ',' . $date['dayOfWeek']
+        ])->count();
+        $num2 = 40 - Db::table('lifeInfoStudent')->where([
+            'infoTime' => '14:30-15:00',
+            'infoDate' => $date['date'] . ',' . $date['dayOfWeek']
+        ])->count();
+        $num3 = 40 - Db::table('lifeInfoStudent')->where([
+            'infoTime' => '14:30-15:00',
+            'infoDate' => $date['date'] . ',' . $date['dayOfWeek']
+        ])->count();
+
+        echo 'num1='.$num1.'num2='.$num2.'num3='.$num3;
     }
 }
