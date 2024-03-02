@@ -71,6 +71,9 @@ class Index
      */
     public function updateCount()
     {
-        dump(Request::param());
+        $param = Request::param();
+        for($i=0;$i<count($param);$i++){
+            echo $param[$i]." ";
+        }
     }
 }
