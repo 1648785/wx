@@ -17,3 +17,5 @@ Route::get('/api/count', 'index/getCount');
 Route::post('/api/count', 'index/updateCount');
 
 Route::post('/api/setInfo', 'getInfo/setInfo');
+
+Route::post('/api/getticketnum', 'index/getTicketNum');
