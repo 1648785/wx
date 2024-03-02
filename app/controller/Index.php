@@ -86,7 +86,9 @@ class Index
         }
         echo Request::param('infoTime');
 
-        echo Request::param('infoDate');
+        echo Request::param('infoDate')['date'];
+        echo Request::param('infoDate')['dayOfWeek'];
+
 
     }
 }
