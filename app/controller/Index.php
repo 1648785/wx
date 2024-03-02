@@ -31,7 +31,7 @@ class Index
             'infoPhone' => Request::post('infoPhone'),
             'infoTime' => Request::post('infoTime'),
             'infoDate' => Request::post('infoDate'),
-        ])->select()) {
+        ])->find()) {
             echo '你已经预约过了';
             die;
         }
