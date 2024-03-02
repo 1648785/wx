@@ -36,15 +36,15 @@ class Index
     {
         $num1 = 40 - Db::table('lifeInfoStudent')->where([
             'infoTime' => '14:00-14:30',
-            'infoDate' => $date['date'] . ',' . $date['dayOfWeek']
+            'infoDate' => $date
         ])->count();
         $num2 = 40 - Db::table('lifeInfoStudent')->where([
             'infoTime' => '14:30-15:00',
-            'infoDate' => $date['date'] . ',' . $date['dayOfWeek']
+            'infoDate' => $date
         ])->count();
         $num3 = 40 - Db::table('lifeInfoStudent')->where([
             'infoTime' => '14:30-15:00',
-            'infoDate' => $date['date'] . ',' . $date['dayOfWeek']
+            'infoDate' => $date
         ])->count();
 
         echo 'num1='.$num1.'num2='.$num2.'num3='.$num3;
