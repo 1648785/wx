@@ -91,4 +91,13 @@ class Index
 
 
     }
+    /**
+     * 查询是否有票
+     */
+
+    public function getTicketNum($date,$time){
+        echo "日期：".$date['date'];
+        echo "星期：".$date['dayOfWeek'];
+        echo "时间段".$time;
+    }
 }
