@@ -39,7 +39,7 @@ class Index
 
         // echo Request::param('infoDate')['date'];
         // echo Request::param('infoDate')['dayOfWeek'];
-
+//
         if(Db::name('lifeInfoStudent')->insert(Request::post())){
             echo '预约成功';
         }else{
