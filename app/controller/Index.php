@@ -22,16 +22,17 @@ class Index
      */
     public function lifeInfoStudent()
     {
-        if (Db::table('lifeInfoStudent')->where([
-            'infoUname' => Request::post('infoUname'),
-            'infoType' => Request::post('infoType'),
-            'infoActivity' => Request::post('infoActivity'),
-            'infoClass' => Request::post('infoClass'),
-            'infoCode' => Request::post('infoCode'),
-            'infoPhone' => Request::post('infoPhone'),
-            'infoTime' => Request::post('infoTime'),
-            'infoDate' => Request::post('infoDate'),
-        ])->find()) {
+        // [
+        //     'infoUname' => Request::post('infoUname'),
+        //     'infoType' => Request::post('infoType'),
+        //     'infoActivity' => Request::post('infoActivity'),
+        //     'infoClass' => Request::post('infoClass'),
+        //     'infoCode' => Request::post('infoCode'),
+        //     'infoPhone' => Request::post('infoPhone'),
+        //     'infoTime' => Request::post('infoTime'),
+        //     'infoDate' => Request::post('infoDate'),
+        // ]
+        if (Db::table('lifeInfoStudent')->where(Request::post())->find()) {
             echo '你已经预约过了';
             die;
         }
