@@ -22,6 +22,20 @@ class Index
      */
     public function lifeInfoStudent()
     {
+        if (Db::table('lifeInfoStudent')->where([
+            'infoUname' => Request::post('infoUname'),
+            'infoType' => Request::post('infoType'),
+            'infoActivity' => Request::post('infoActivity'),
+            'infoClass' => Request::post('infoClass'),
+            'infoCode' => Request::post('infoCode'),
+            'infoPhone' => Request::post('infoPhone'),
+            'infoTime' => Request::post('infoTime'),
+            'infoDate' => Request::post('infoDate'),
+        ])->select()) {
+            echo '你已经预约过了';
+            die;
+        }
+
         if (Db::table('lifeInfoStudent')->insert(Request::post())) {
             echo '预约成功';
         } else {
@@ -47,6 +61,6 @@ class Index
             'infoDate' => $date
         ])->count();
 
-        echo json_encode(['num1' => $num1,'num2' => $num2,'num3' => $num3]);
+        echo json_encode(['num1' => $num1, 'num2' => $num2, 'num3' => $num3]);
     }
 }
