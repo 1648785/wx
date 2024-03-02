@@ -47,6 +47,7 @@ class Index
             'infoDate' => $date
         ])->count();
 
-        echo 'num1='.$num1.'num2='.$num2.'num3='.$num3;
+
+        echo json_encode(['num1' => $num1,'num2' => $num2,'num3' => $num3]);
     }
 }
