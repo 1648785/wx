@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | 文件: index.php
 // +----------------------------------------------------------------------
@@ -16,31 +17,31 @@ use think\facade\Db;
 
 class Index
 {
-
     /**
      * 生命科学馆 本校人员提交预约信息
      */
     public function lifeInfoStudent()
     {
-        // [
-        //     'infoUname' => Request::post('infoUname'),
-        //     'infoType' => Request::post('infoType'),
-        //     'infoActivity' => Request::post('infoActivity'),
-        //     'infoClass' => Request::post('infoClass'),
-        //     'infoCode' => Request::post('infoCode'),
-        //     'infoPhone' => Request::post('infoPhone'),
-        //     'infoTime' => Request::post('infoTime'),
-        //     'infoDate' => Request::post('infoDate'),
-        // ]
-        if (Db::table('lifeInfoStudent')->where(Request::post())->find()) {
-            echo '你已经预约过了';
-            die;
-        }
-
-        if (Db::table('lifeInfoStudent')->insert(Request::post())) {
-            echo '预约成功';
-        } else {
-            echo "预约失败";
+        if (Request::post('infoAge')) { //校外人员
+            if (Db::table('lifeInfoSocial')->where(Request::post())->find()) {
+                echo '你已经预约过了';
+                die;
+            }
+            if (Db::table('lifeInfoSocial')->insert(Request::post())) {
+                echo '预约成功';
+            } else {
+                echo "预约失败";
+            }
+        } else { //校内人员
+            if (Db::table('lifeInfoStudent')->where(Request::post())->find()) {
+                echo '你已经预约过了';
+                die;
+            }
+            if (Db::table('lifeInfoStudent')->insert(Request::post())) {
+                echo '预约成功';
+            } else {
+                echo "预约失败";
+            }
         }
     }
 
