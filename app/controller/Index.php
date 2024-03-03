@@ -83,7 +83,7 @@ class Index
             'infoDate' => $date
         ])->find()) {
             $num1 = 0;
-        } else {//否则票数为40 - 校内个人预约 - 校外个人预约
+        } else { //否则票数为40 - 校内个人预约 - 校外个人预约
             $num1 = 40 - Db::table('lifeInfoStudent')->where([
                 'infoTime' => '14:00-14:30',
                 'infoDate' => $date
@@ -130,5 +130,35 @@ class Index
         }
 
         echo json_encode(['num1' => $num1, 'num2' => $num2, 'num3' => $num3]);
+    }
+
+    /**
+     * 获取用户唯一标识
+     */
+    public function getUserID($code)
+    {
+        $APPID = 'wx714545d0c1221a05';
+        $SECRET = 'f1aac468a405a88523acb626df767333';
+        $JSCODE = $code;
+
+
+        // 创建一个新cURL资源
+        $ch = curl_init();
+
+        // 设置要访问的URL地址
+        curl_setopt($ch, CURLOPT_URL, "https://api.weixin.qq.com/sns/jscode2session?appid=".$APPID."&secret=".$SECRET."&js_code=".$JSCODE."&grant_type=authorization_code"); // 将"http://example.com/api"替换为目标API的URL
+
+        // 设置其他选项（根据需要进行配置）
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // 将返回值保存到变量中而不直接输出
+        curl_setopt($ch, CURLOPT_HEADER, false); // 不包含头部信息在返回结果中
+
+        // 发起请求并获取返回结果
+        $response = curl_exec($ch);
+
+        // 关闭cURL会话
+        curl_close($ch);
+
+        // 处理返回结果
+        echo $response;
     }
 }
