@@ -53,13 +53,22 @@ class Index
         $num1 = 40 - Db::table('lifeInfoStudent')->where([
             'infoTime' => '14:00-14:30',
             'infoDate' => $date
+        ])->count() - Db::table('lifeInfoSocial')->where([
+            'infoTime' => '14:00-14:30',
+            'infoDate' => $date
         ])->count();
         $num2 = 40 - Db::table('lifeInfoStudent')->where([
             'infoTime' => '14:30-15:00',
             'infoDate' => $date
+        ])->count() - Db::table('lifeInfoSocial')->where([
+            'infoTime' => '14:00-14:30',
+            'infoDate' => $date
         ])->count();
         $num3 = 40 - Db::table('lifeInfoStudent')->where([
             'infoTime' => '14:30-15:00',
+            'infoDate' => $date
+        ])->count() - Db::table('lifeInfoSocial')->where([
+            'infoTime' => '14:00-14:30',
             'infoDate' => $date
         ])->count();
 
