@@ -222,7 +222,7 @@ class Index
         ])->find()) {
             $num1 = 0;
         } else { //否则票数为40 - 校内个人预约 - 校外个人预约
-            $num1 = 40 - Db::table('teacherInfoStudent')->where([
+            $num1 = 20 - Db::table('teacherInfoStudent')->where([
                 'infoTime' => '08:00-09:00',
                 'infoDate' => $date
             ])->count();
@@ -234,7 +234,7 @@ class Index
         ])->find()) {
             $num2 = 0;
         } else {
-            $num2 = 40 - Db::table('teacherInfoStudent')->where([
+            $num2 = 20 - Db::table('teacherInfoStudent')->where([
                 'infoTime' => '09:00-10:00',
                 'infoDate' => $date
             ])->count();
@@ -246,7 +246,7 @@ class Index
         ])->find()) {
             $num3 = 0;
         } else {
-            $num3 = 40 - Db::table('teacherInfoStudent')->where([
+            $num3 = 20 - Db::table('teacherInfoStudent')->where([
                 'infoTime' => '10:00-11:00',
                 'infoDate' => $date
             ])->count();
@@ -258,7 +258,7 @@ class Index
         ])->find()) {
             $num4 = 0;
         } else {
-            $num4 = 40 - Db::table('teacherInfoStudent')->where([
+            $num4 = 20 - Db::table('teacherInfoStudent')->where([
                 'infoTime' => '11:00-12:00',
                 'infoDate' => $date
             ])->count();
@@ -276,7 +276,7 @@ class Index
         ])->find()) {
             $num1 = 0;
         } else { //否则票数为40 - 校内个人预约 - 校外个人预约
-            $num1 = 40 - Db::table('activityInfoStudent')->where([
+            $num1 = 100 - Db::table('activityInfoStudent')->where([
                 'infoTime' => '08:00-09:00',
                 'infoDate' => $date
             ])->count();
@@ -288,7 +288,7 @@ class Index
         ])->find()) {
             $num2 = 0;
         } else {
-            $num2 = 40 - Db::table('activityInfoStudent')->where([
+            $num2 = 100 - Db::table('activityInfoStudent')->where([
                 'infoTime' => '09:00-10:00',
                 'infoDate' => $date
             ])->count();
@@ -300,7 +300,7 @@ class Index
         ])->find()) {
             $num3 = 0;
         } else {
-            $num3 = 40 - Db::table('activityInfoStudent')->where([
+            $num3 = 100 - Db::table('activityInfoStudent')->where([
                 'infoTime' => '10:00-11:00',
                 'infoDate' => $date
             ])->count();
@@ -312,7 +312,7 @@ class Index
         ])->find()) {
             $num4 = 0;
         } else {
-            $num4 = 40 - Db::table('activityInfoStudent')->where([
+            $num4 = 100 - Db::table('activityInfoStudent')->where([
                 'infoTime' => '11:00-12:00',
                 'infoDate' => $date
             ])->count();
