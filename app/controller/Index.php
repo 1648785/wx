@@ -106,6 +106,9 @@ class Index
         }
     }
 
+    /**
+     * 
+     */
     public function activity()
     {
         if (Request::post('infoType') == '个人预约') {
