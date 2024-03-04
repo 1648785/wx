@@ -149,62 +149,29 @@ class Index
 
     public function ticketLife($date)
     {
-        //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
+        $arr = ['14:00-14:30', '14:30-15:00', '15:00-15:30', ];
+        $num = [];
+        for ($i = 0; $i < count($arr); $i++) {
+               //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
         if (Db::table('lifeInfoStudentTeam')->where([
-            'infoTime' => '14:00-14:30',
+            'infoTime' => $arr[$i],
             'infoDate' => $date
         ])->find() ||  Db::table('lifeInfoSocialTeam')->where([
-            'infoTime' => '14:00-14:30',
+            'infoTime' => $arr[$i],
             'infoDate' => $date
         ])->find()) {
-            $num1 = 0;
+            $num[$i] = 0;
         } else { //否则票数为40 - 校内个人预约 - 校外个人预约
-            $num1 = 40 - Db::table('lifeInfoStudent')->where([
-                'infoTime' => '14:00-14:30',
+            $num[$i] = 40 - Db::table('lifeInfoStudent')->where([
+                'infoTime' => $arr[$i],
                 'infoDate' => $date
             ])->count() - Db::table('lifeInfoSocial')->where([
-                'infoTime' => '14:00-14:30',
+                'infoTime' => $arr[$i],
                 'infoDate' => $date
             ])->count();
         }
-
-        if (Db::table('lifeInfoStudentTeam')->where([
-            'infoTime' => '14:30-15:00',
-            'infoDate' => $date
-        ])->find() ||  Db::table('lifeInfoSocialTeam')->where([
-            'infoTime' => '14:30-15:00',
-            'infoDate' => $date
-        ])->find()) {
-            $num2 = 0;
-        } else {
-            $num2 = 40 - Db::table('lifeInfoStudent')->where([
-                'infoTime' => '14:30-15:00',
-                'infoDate' => $date
-            ])->count() - Db::table('lifeInfoSocial')->where([
-                'infoTime' => '14:30-15:00',
-                'infoDate' => $date
-            ])->count();
         }
-
-        if (Db::table('lifeInfoStudentTeam')->where([
-            'infoTime' => '15:00-15:30',
-            'infoDate' => $date
-        ])->find() ||  Db::table('lifeInfoSocialTeam')->where([
-            'infoTime' => '15:00-15:30',
-            'infoDate' => $date
-        ])->find()) {
-            $num3 = 0;
-        } else {
-            $num3 = 40 - Db::table('lifeInfoStudent')->where([
-                'infoTime' => '15:00-15:30',
-                'infoDate' => $date
-            ])->count() - Db::table('lifeInfoSocial')->where([
-                'infoTime' => '15:00-15:30',
-                'infoDate' => $date
-            ])->count();
-        }
-
-        echo json_encode(['num1' => $num1, 'num2' => $num2, 'num3' => $num3]);
+        echo json_encode($num);
     }
 
     public function ticketTeacher($date)
