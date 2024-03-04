@@ -134,8 +134,10 @@ class Index
     /**
      * 查询是否有票
      */
-    public function getTicketNum($date, $infoSpaceName)
+    public function getTicketNum()
     {
+        $date = Request::post('date');
+        $infoSpaceName = Request::post('infoSpaceName');
         if ($infoSpaceName == '生命科学馆') {
             $this->ticketLife($date);
         } elseif ($infoSpaceName == '导师工作站') {
