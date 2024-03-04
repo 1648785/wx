@@ -134,7 +134,18 @@ class Index
     /**
      * 查询是否有票
      */
-    public function getTicketNum($date)
+    public function getTicketNum($date, $infoSpaceName)
+    {
+        if ($infoSpaceName == '生命科学馆') {
+            $this->ticketLife($date);
+        } elseif ($infoSpaceName == '导师工作站') {
+            $this->ticketTeacher($date);
+        } else {
+            $this->ticketAvtivity($date);
+        }
+    }
+
+    public function ticketLife($date)
     {
         //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
         if (Db::table('lifeInfoStudentTeam')->where([
@@ -194,6 +205,113 @@ class Index
         echo json_encode(['num1' => $num1, 'num2' => $num2, 'num3' => $num3]);
     }
 
+    public function ticketTeacher($date)
+    {
+        //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
+        if (Db::table('teacherInfoStudentTeam')->where([
+            'infoTime' => '08:00-09:00',
+            'infoDate' => $date
+        ])->find()) {
+            $num1 = 0;
+        } else { //否则票数为40 - 校内个人预约 - 校外个人预约
+            $num1 = 40 - Db::table('teacherInfoStudent')->where([
+                'infoTime' => '08:00-09:00',
+                'infoDate' => $date
+            ])->count();
+        }
+
+        if (Db::table('teacherInfoStudentTeam')->where([
+            'infoTime' => '09:00-10:00',
+            'infoDate' => $date
+        ])->find()) {
+            $num2 = 0;
+        } else {
+            $num2 = 40 - Db::table('teacherInfoStudent')->where([
+                'infoTime' => '09:00-10:00',
+                'infoDate' => $date
+            ])->count();
+        }
+
+        if (Db::table('teacherInfoStudentTeam')->where([
+            'infoTime' => '10:00-11:00',
+            'infoDate' => $date
+        ])->find()) {
+            $num3 = 0;
+        } else {
+            $num3 = 40 - Db::table('teacherInfoStudent')->where([
+                'infoTime' => '10:00-11:00',
+                'infoDate' => $date
+            ])->count();
+        }
+
+        if (Db::table('teacherInfoStudentTeam')->where([
+            'infoTime' => '11:00-12:00',
+            'infoDate' => $date
+        ])->find()) {
+            $num4 = 0;
+        } else {
+            $num4 = 40 - Db::table('teacherInfoStudent')->where([
+                'infoTime' => '11:00-12:00',
+                'infoDate' => $date
+            ])->count();
+        }
+
+        echo json_encode(['num1' => $num1, 'num2' => $num2, 'num3' => $num3, 'num4' => $num4]);
+    }
+    
+    public function ticketAvtivity($date)
+    {
+        //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
+        if (Db::table('activityInfoStudentTeam')->where([
+            'infoTime' => '08:00-09:00',
+            'infoDate' => $date
+        ])->find()) {
+            $num1 = 0;
+        } else { //否则票数为40 - 校内个人预约 - 校外个人预约
+            $num1 = 40 - Db::table('activityInfoStudent')->where([
+                'infoTime' => '08:00-09:00',
+                'infoDate' => $date
+            ])->count();
+        }
+
+        if (Db::table('activityInfoStudentTeam')->where([
+            'infoTime' => '09:00-10:00',
+            'infoDate' => $date
+        ])->find()) {
+            $num2 = 0;
+        } else {
+            $num2 = 40 - Db::table('activityInfoStudent')->where([
+                'infoTime' => '09:00-10:00',
+                'infoDate' => $date
+            ])->count();
+        }
+
+        if (Db::table('activityInfoStudentTeam')->where([
+            'infoTime' => '10:00-11:00',
+            'infoDate' => $date
+        ])->find()) {
+            $num3 = 0;
+        } else {
+            $num3 = 40 - Db::table('activityInfoStudent')->where([
+                'infoTime' => '10:00-11:00',
+                'infoDate' => $date
+            ])->count();
+        }
+
+        if (Db::table('activityInfoStudentTeam')->where([
+            'infoTime' => '11:00-12:00',
+            'infoDate' => $date
+        ])->find()) {
+            $num4 = 0;
+        } else {
+            $num4 = 40 - Db::table('activityInfoStudent')->where([
+                'infoTime' => '11:00-12:00',
+                'infoDate' => $date
+            ])->count();
+        }
+
+        echo json_encode(['num1' => $num1, 'num2' => $num2, 'num3' => $num3, 'num4' => $num4]);
+    }
     /**
      * 获取用户唯一标识
      */
