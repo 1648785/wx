@@ -20,7 +20,19 @@ class Index
     /**
      * 生命科学馆 本校人员提交预约信息
      */
-    public function lifeInfoStudent()
+    public function info()
+    {
+        $infoSpaceName = Request::post('infoSpaceName');
+        if ($infoSpaceName == '生命科学馆') {
+            $this->life();
+        } elseif ($infoSpaceName == '导师工作站') {
+            $this->teacher();
+        } else {
+            $this->activity();
+        }
+    }
+
+    public function life()
     {
         if (Request::post('infoType') == '个人预约') {
             if (Request::post('infoAge')) { //校外人员
@@ -65,6 +77,56 @@ class Index
                 } else {
                     echo "预约失败";
                 }
+            }
+        }
+    }
+
+    public function teacher()
+    {
+        if (Request::post('infoType') == '个人预约') {
+            if (Db::table('teacherInfoStudent')->where(Request::post())->find()) {
+                echo '你已经预约过了';
+                die;
+            }
+            if (Db::table('teacherInfoStudent')->insert(Request::post())) {
+                echo '预约成功';
+            } else {
+                echo "预约失败";
+            }
+        } else { //团体预约
+            if (Db::table('teacherInfoStudentTeam')->where(Request::post())->find()) {
+                echo '你已经预约过了';
+                die;
+            }
+            if (Db::table('teacherInfoStudentTeam')->insert(Request::post())) {
+                echo '预约成功';
+            } else {
+                echo "预约失败";
+            }
+        }
+    }
+
+    public function activity()
+    {
+        if (Request::post('infoType') == '个人预约') {
+            if (Db::table('activityInfoStudent')->where(Request::post())->find()) {
+                echo '你已经预约过了';
+                die;
+            }
+            if (Db::table('activityInfoStudent')->insert(Request::post())) {
+                echo '预约成功';
+            } else {
+                echo "预约失败";
+            }
+        } else { //团体预约
+            if (Db::table('activityInfoStudentTeam')->where(Request::post())->find()) {
+                echo '你已经预约过了';
+                die;
+            }
+            if (Db::table('activityInfoStudentTeam')->insert(Request::post())) {
+                echo '预约成功';
+            } else {
+                echo "预约失败";
             }
         }
     }
@@ -141,24 +203,12 @@ class Index
         $SECRET = 'f1aac468a405a88523acb626df767333';
         $JSCODE = $code;
 
-
-        // 创建一个新cURL资源
         $ch = curl_init();
-
-        // 设置要访问的URL地址
-        curl_setopt($ch, CURLOPT_URL, "https://api.weixin.qq.com/sns/jscode2session?appid=".$APPID."&secret=".$SECRET."&js_code=".$JSCODE."&grant_type=authorization_code"); // 将"http://example.com/api"替换为目标API的URL
-
-        // 设置其他选项（根据需要进行配置）
+        curl_setopt($ch, CURLOPT_URL, "https://api.weixin.qq.com/sns/jscode2session?appid=" . $APPID . "&secret=" . $SECRET . "&js_code=" . $JSCODE . "&grant_type=authorization_code");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // 将返回值保存到变量中而不直接输出
         curl_setopt($ch, CURLOPT_HEADER, false); // 不包含头部信息在返回结果中
-
-        // 发起请求并获取返回结果
         $response = curl_exec($ch);
-
-        // 关闭cURL会话
         curl_close($ch);
-
-        // 处理返回结果
         echo $response;
     }
 }
