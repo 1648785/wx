@@ -205,6 +205,9 @@ class Index
         echo json_encode(['num1' => $num1, 'num2' => $num2, 'num3' => $num3]);
     }
 
+    /**
+     * 获取导师工作站票
+     */
     public function ticketTeacher($date)
     {
         //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
@@ -258,7 +261,7 @@ class Index
 
         echo json_encode(['num1' => $num1, 'num2' => $num2, 'num3' => $num3, 'num4' => $num4]);
     }
-    
+
     public function ticketAvtivity($date)
     {
         //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
