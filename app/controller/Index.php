@@ -23,7 +23,6 @@ class Index
     public function info()
     {
         $infoSpaceName = Request::post('infoSpaceName');
-        Request::post('infoSpaceName') == null;
         if ($infoSpaceName == '生命科学馆') {
             $this->life();
         } elseif ($infoSpaceName == '导师工作站') {
