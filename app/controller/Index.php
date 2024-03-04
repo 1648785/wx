@@ -209,110 +209,44 @@ class Index
 
     public function ticketTeacher($date)
     {
-        //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
-        if (Db::table('teacherInfoStudentTeam')->where([
-            'infoTime' => '08:00-09:00',
-            'infoDate' => $date
-        ])->find()) {
-            $num1 = 0;
-        } else { //否则票数为40 - 校内个人预约 - 校外个人预约
-            $num1 = 20 - Db::table('teacherInfoStudent')->where([
-                'infoTime' => '08:00-09:00',
+        $arr = ['08:00-09:00', '09:00-10:00', '10:00-11:00', '11:00-12:00', '12:00-13:00', '13:00-14:00', '14:00-15:00', '15:00-16:00', '16:00-17:00', '17:00-18:00', '18:00-19:00', '19:00-20:00', '20:00-21:00'];
+        $num = [];
+        for ($i = 0; $i < count($arr); $i++) {
+            //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
+            if (Db::table('teacherInfoStudentTeam')->where([
+                'infoTime' => $arr[$i],
                 'infoDate' => $date
-            ])->count();
+            ])->find()) {
+                $num[$i] = 0;
+            } else { //否则票数为40 - 校内个人预约 - 校外个人预约
+                $num[$i] = 20 - Db::table('teacherInfoStudent')->where([
+                    'infoTime' => $arr[$i],
+                    'infoDate' => $date
+                ])->count();
+            }
         }
-
-        if (Db::table('teacherInfoStudentTeam')->where([
-            'infoTime' => '09:00-10:00',
-            'infoDate' => $date
-        ])->find()) {
-            $num2 = 0;
-        } else {
-            $num2 = 20 - Db::table('teacherInfoStudent')->where([
-                'infoTime' => '09:00-10:00',
-                'infoDate' => $date
-            ])->count();
-        }
-
-        if (Db::table('teacherInfoStudentTeam')->where([
-            'infoTime' => '10:00-11:00',
-            'infoDate' => $date
-        ])->find()) {
-            $num3 = 0;
-        } else {
-            $num3 = 20 - Db::table('teacherInfoStudent')->where([
-                'infoTime' => '10:00-11:00',
-                'infoDate' => $date
-            ])->count();
-        }
-
-        if (Db::table('teacherInfoStudentTeam')->where([
-            'infoTime' => '11:00-12:00',
-            'infoDate' => $date
-        ])->find()) {
-            $num4 = 0;
-        } else {
-            $num4 = 20 - Db::table('teacherInfoStudent')->where([
-                'infoTime' => '11:00-12:00',
-                'infoDate' => $date
-            ])->count();
-        }
-
-        echo json_encode(['num1' => $num1, 'num2' => $num2, 'num3' => $num3, 'num4' => $num4]);
+        echo json_encode($num);
     }
 
     public function ticketAvtivity($date)
     {
-        //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
-        if (Db::table('activityInfoStudentTeam')->where([
-            'infoTime' => '08:00-09:00',
-            'infoDate' => $date
-        ])->find()) {
-            $num1 = 0;
-        } else { //否则票数为40 - 校内个人预约 - 校外个人预约
-            $num1 = 100 - Db::table('activityInfoStudent')->where([
-                'infoTime' => '08:00-09:00',
+        $arr = ['08:00-09:00', '09:00-10:00', '10:00-11:00', '11:00-12:00', '12:00-13:00', '13:00-14:00', '14:00-15:00', '15:00-16:00', '16:00-17:00', '17:00-18:00', '18:00-19:00', '19:00-20:00', '20:00-21:00'];
+        $num = [];
+        for ($i = 0; $i < count($arr); $i++) {
+            //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
+            if (Db::table('activityInfoStudentTeam')->where([
+                'infoTime' => $arr[$i],
                 'infoDate' => $date
-            ])->count();
+            ])->find()) {
+                $num[$i] = 0;
+            } else { //否则票数为40 - 校内个人预约 - 校外个人预约
+                $num[$i] = 20 - Db::table('activityInfoStudent')->where([
+                    'infoTime' => $arr[$i],
+                    'infoDate' => $date
+                ])->count();
+            }
         }
-
-        if (Db::table('activityInfoStudentTeam')->where([
-            'infoTime' => '09:00-10:00',
-            'infoDate' => $date
-        ])->find()) {
-            $num2 = 0;
-        } else {
-            $num2 = 100 - Db::table('activityInfoStudent')->where([
-                'infoTime' => '09:00-10:00',
-                'infoDate' => $date
-            ])->count();
-        }
-
-        if (Db::table('activityInfoStudentTeam')->where([
-            'infoTime' => '10:00-11:00',
-            'infoDate' => $date
-        ])->find()) {
-            $num3 = 0;
-        } else {
-            $num3 = 100 - Db::table('activityInfoStudent')->where([
-                'infoTime' => '10:00-11:00',
-                'infoDate' => $date
-            ])->count();
-        }
-
-        if (Db::table('activityInfoStudentTeam')->where([
-            'infoTime' => '11:00-12:00',
-            'infoDate' => $date
-        ])->find()) {
-            $num4 = 0;
-        } else {
-            $num4 = 100 - Db::table('activityInfoStudent')->where([
-                'infoTime' => '11:00-12:00',
-                'infoDate' => $date
-            ])->count();
-        }
-
-        echo json_encode(['num1' => $num1, 'num2' => $num2, 'num3' => $num3, 'num4' => $num4]);
+        echo json_encode($num);
     }
 
     /**
@@ -333,7 +267,8 @@ class Index
         echo $response;
     }
 
-    public function getInfo(){
+    public function getInfo()
+    {
         $res1 = DB::table('activityInfoStudent')->where('openid', Request::get('openid'))->select()->toArray();
         $res2 = DB::table('activityInfoStudentTeam')->where('openid', Request::get('openid'))->select()->toArray();
         $res3 = DB::table('lifeInfoSocial')->where('openid', Request::get('openid'))->select()->toArray();
@@ -342,9 +277,7 @@ class Index
         $res6 = DB::table('lifeInfoStudentTeam')->where('openid', Request::get('openid'))->select()->toArray();
         $res7 = DB::table('teacherInfoStudent')->where('openid', Request::get('openid'))->select()->toArray();
         $res8 = DB::table('teacherInfoStudentTeam')->where('openid', Request::get('openid'))->select()->toArray();
-
         $res = array_merge($res1, $res2, $res3, $res4, $res5, $res6, $res7, $res8);
-
         echo json_encode($res);
     }
 }
