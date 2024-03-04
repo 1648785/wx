@@ -106,9 +106,6 @@ class Index
         }
     }
 
-    /**
-     * 
-     */
     public function activity()
     {
         if (Request::post('infoType') == '个人预约') {
@@ -210,9 +207,6 @@ class Index
         echo json_encode(['num1' => $num1, 'num2' => $num2, 'num3' => $num3]);
     }
 
-    /**
-     * 获取导师工作站票
-     */
     public function ticketTeacher($date)
     {
         //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
@@ -320,6 +314,7 @@ class Index
 
         echo json_encode(['num1' => $num1, 'num2' => $num2, 'num3' => $num3, 'num4' => $num4]);
     }
+
     /**
      * 获取用户唯一标识
      */
@@ -336,5 +331,20 @@ class Index
         $response = curl_exec($ch);
         curl_close($ch);
         echo $response;
+    }
+
+    public function getInfo(){
+        $res1 = DB::table('activityInfoStudent')->where('openid', Request::get('openid'))->select()->toArray();
+        $res2 = DB::table('activityInfoStudentTeam')->where('openid', Request::get('openid'))->select()->toArray();
+        $res3 = DB::table('lifeInfoSocial')->where('openid', Request::get('openid'))->select()->toArray();
+        $res4 = DB::table('lifeInfoSocialTeam')->where('openid', Request::get('openid'))->select()->toArray();
+        $res5 = DB::table('lifeInfoStudent')->where('openid', Request::get('openid'))->select()->toArray();
+        $res6 = DB::table('lifeInfoStudentTeam')->where('openid', Request::get('openid'))->select()->toArray();
+        $res7 = DB::table('teacherInfoStudent')->where('openid', Request::get('openid'))->select()->toArray();
+        $res8 = DB::table('teacherInfoStudentTeam')->where('openid', Request::get('openid'))->select()->toArray();
+
+        $res = array_merge($res1, $res2, $res3, $res4, $res5, $res6, $res7, $res8);
+
+        echo json_encode($res);
     }
 }
