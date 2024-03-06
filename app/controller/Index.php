@@ -148,7 +148,7 @@ class Index
         $num = [];
 
         for ($i = 0; $i < count($arr); $i++) {
-            if(Request::post('type') == '个人预约'){
+            if (Request::post('type') == '个人预约') {
                 if (Db::table('info')->where([
                     'date' => $date,
                     'time' => $arr[$i],
@@ -163,7 +163,7 @@ class Index
                         'num' => ''
                     ])->count();
                 }
-            }else{
+            } else {
                 if (Db::table('info')->where([
                     'date' => $date,
                     'time' => $arr[$i],
@@ -175,7 +175,6 @@ class Index
                     $num[$i] = 40;
                 }
             }
-            
         }
         echo json_encode($num);
     }
@@ -186,7 +185,7 @@ class Index
         $num = [];
 
         for ($i = 0; $i < count($arr); $i++) {
-            if(Request::post('type') == '个人预约'){
+            if (Request::post('type') == '个人预约') {
                 if (Db::table('info')->where([
                     'date' => $date,
                     'time' => $arr[$i],
@@ -201,7 +200,7 @@ class Index
                         'num' => ''
                     ])->count();
                 }
-            }else{
+            } else {
                 if (Db::table('info')->where([
                     'date' => $date,
                     'time' => $arr[$i],
@@ -221,9 +220,9 @@ class Index
     {
         $arr = ['08:00-09:00', '09:00-10:00', '10:00-11:00', '11:00-12:00', '12:00-13:00', '13:00-14:00', '14:00-15:00', '15:00-16:00', '16:00-17:00', '17:00-18:00', '18:00-19:00', '19:00-20:00', '20:00-21:00'];
         $num = [];
-        
+
         for ($i = 0; $i < count($arr); $i++) {
-            if(Request::post('type') == '个人预约'){
+            if (Request::post('type') == '个人预约') {
                 if (Db::table('info')->where([
                     'date' => $date,
                     'time' => $arr[$i],
@@ -238,7 +237,7 @@ class Index
                         'num' => ''
                     ])->count();
                 }
-            }else{
+            } else {
                 if (Db::table('info')->where([
                     'date' => $date,
                     'time' => $arr[$i],
@@ -274,7 +273,7 @@ class Index
 
     public function getInfo()
     {
-        $res = DB::table('info')->where('openid', Request::get('openid'))->order('id', 'desc')->limit((int)Request::get('page'),6)->select()->toArray();
+        $res = DB::table('info')->where('openid', Request::get('openid'))->order('id', 'desc')->limit((int)Request::get('page') * 0 + 6, 6)->select()->toArray();
         echo json_encode($res);
     }
 }
