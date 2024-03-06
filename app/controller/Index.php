@@ -170,7 +170,7 @@ class Index
                     'spaceName' => '生命科学馆',
                     'num' => ''
                 ])->count()) {
-                    $num[$i] = Request::post('type');
+                    $num[$i] = Request::post();
                 } else {
                     $num[$i] = 40;
                 }
