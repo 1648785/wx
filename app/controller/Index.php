@@ -144,25 +144,42 @@ class Index
 
     public function ticketLife($date)
     {
-        $arr = ['14:00-14:30', '14:30-15:00', '15:00-15:30', ];
+        $arr = ['14:00-14:30', '14:30-15:00', '15:00-15:30',];
         $num = [];
+        // for ($i = 0; $i < count($arr); $i++) {
+        //     //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
+        //     if (Db::table('lifeInfoStudentTeam')->where([
+        //         'infoTime' => $arr[$i],
+        //         'infoDate' => $date
+        //     ])->find() ||  Db::table('lifeInfoSocialTeam')->where([
+        //         'infoTime' => $arr[$i],
+        //         'infoDate' => $date
+        //     ])->find()) {
+        //         $num[$i] = 0;
+        //     } else { //否则票数为40 - 校内个人预约 - 校外个人预约
+        //         $num[$i] = 40 - Db::table('lifeInfoStudent')->where([
+        //             'infoTime' => $arr[$i],
+        //             'infoDate' => $date
+        //         ])->count() - Db::table('lifeInfoSocial')->where([
+        //             'infoTime' => $arr[$i],
+        //             'infoDate' => $date
+        //         ])->count();
+        //     }
+        // }
+
         for ($i = 0; $i < count($arr); $i++) {
-            //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
-            if (Db::table('lifeInfoStudentTeam')->where([
-                'infoTime' => $arr[$i],
-                'infoDate' => $date
-            ])->find() ||  Db::table('lifeInfoSocialTeam')->where([
-                'infoTime' => $arr[$i],
-                'infoDate' => $date
-            ])->find()) {
+            if (Db::table('info')->where([
+                'date' => $date,
+                'time' => $arr[$i],
+                'spaceName' => '生命科学馆'
+            ])->where('num', '!=', '')->find()) {
                 $num[$i] = 0;
-            } else { //否则票数为40 - 校内个人预约 - 校外个人预约
-                $num[$i] = 40 - Db::table('lifeInfoStudent')->where([
-                    'infoTime' => $arr[$i],
-                    'infoDate' => $date
-                ])->count() - Db::table('lifeInfoSocial')->where([
-                    'infoTime' => $arr[$i],
-                    'infoDate' => $date
+            } else {
+                $num[$i] = 40 - Db::table('info')->where([
+                    'date' => $date,
+                    'time' => $arr[$i],
+                    'spaceName' => '生命科学馆',
+                    'num' => ''
                 ])->count();
             }
         }
@@ -173,17 +190,34 @@ class Index
     {
         $arr = ['08:00-09:00', '09:00-10:00', '10:00-11:00', '11:00-12:00', '12:00-13:00', '13:00-14:00', '14:00-15:00', '15:00-16:00', '16:00-17:00', '17:00-18:00', '18:00-19:00', '19:00-20:00', '20:00-21:00'];
         $num = [];
+        // for ($i = 0; $i < count($arr); $i++) {
+        //     //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
+        //     if (Db::table('teacherInfoStudentTeam')->where([
+        //         'infoTime' => $arr[$i],
+        //         'infoDate' => $date
+        //     ])->find()) {
+        //         $num[$i] = 0;
+        //     } else { //否则票数为40 - 校内个人预约 - 校外个人预约
+        //         $num[$i] = 20 - Db::table('teacherInfoStudent')->where([
+        //             'infoTime' => $arr[$i],
+        //             'infoDate' => $date
+        //         ])->count();
+        //     }
+        // }
+
         for ($i = 0; $i < count($arr); $i++) {
-            //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
-            if (Db::table('teacherInfoStudentTeam')->where([
-                'infoTime' => $arr[$i],
-                'infoDate' => $date
-            ])->find()) {
+            if (Db::table('info')->where([
+                'date' => $date,
+                'time' => $arr[$i],
+                'spaceName' => '导师工作站'
+            ])->where('num', '!=', '')->find()) {
                 $num[$i] = 0;
-            } else { //否则票数为40 - 校内个人预约 - 校外个人预约
-                $num[$i] = 20 - Db::table('teacherInfoStudent')->where([
-                    'infoTime' => $arr[$i],
-                    'infoDate' => $date
+            } else {
+                $num[$i] = 40 - Db::table('info')->where([
+                    'date' => $date,
+                    'time' => $arr[$i],
+                    'spaceName' => '导师工作站',
+                    'num' => ''
                 ])->count();
             }
         }
@@ -194,17 +228,34 @@ class Index
     {
         $arr = ['08:00-09:00', '09:00-10:00', '10:00-11:00', '11:00-12:00', '12:00-13:00', '13:00-14:00', '14:00-15:00', '15:00-16:00', '16:00-17:00', '17:00-18:00', '18:00-19:00', '19:00-20:00', '20:00-21:00'];
         $num = [];
+        // for ($i = 0; $i < count($arr); $i++) {
+        //     //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
+        //     if (Db::table('activityInfoStudentTeam')->where([
+        //         'infoTime' => $arr[$i],
+        //         'infoDate' => $date
+        //     ])->find()) {
+        //         $num[$i] = 0;
+        //     } else { //否则票数为40 - 校内个人预约 - 校外个人预约
+        //         $num[$i] = 100 - Db::table('activityInfoStudent')->where([
+        //             'infoTime' => $arr[$i],
+        //             'infoDate' => $date
+        //         ])->count();
+        //     }
+        // }
+
         for ($i = 0; $i < count($arr); $i++) {
-            //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
-            if (Db::table('activityInfoStudentTeam')->where([
-                'infoTime' => $arr[$i],
-                'infoDate' => $date
-            ])->find()) {
+            if (Db::table('info')->where([
+                'date' => $date,
+                'time' => $arr[$i],
+                'spaceName' => '多功能活动室'
+            ])->where('num', '!=', '')->find()) {
                 $num[$i] = 0;
-            } else { //否则票数为40 - 校内个人预约 - 校外个人预约
-                $num[$i] = 20 - Db::table('activityInfoStudent')->where([
-                    'infoTime' => $arr[$i],
-                    'infoDate' => $date
+            } else {
+                $num[$i] = 100 - Db::table('info')->where([
+                    'date' => $date,
+                    'time' => $arr[$i],
+                    'spaceName' => '多功能活动室',
+                    'num' => ''
                 ])->count();
             }
         }
