@@ -273,7 +273,7 @@ class Index
 
     public function getInfo()
     {
-        $res = DB::table('info')->where('openid', Request::get('openid'))->order('id', 'desc')->limit((int)Request::get('page') * 0 + 6, 6)->select()->toArray();
+        $res = DB::table('info')->where('openid', Request::get('openid'))->order('id', 'desc')->limit(((int)Request::get('page') * -1) * 6, 6)->select()->toArray();
         echo json_encode($res);
     }
 }
