@@ -132,7 +132,7 @@ class Index
     public function getTicketNum()
     {
         $date = Request::post('date');
-        $infoSpaceName = Request::post('infoSpaceName');
+        $infoSpaceName = Request::post('spaceName');
         if ($infoSpaceName == '生命科学馆') {
             $this->ticketLife($date);
         } elseif ($infoSpaceName == '导师工作站') {
