@@ -153,12 +153,8 @@ class Index
                     'date' => $date,
                     'time' => $arr[$i],
                     'spaceName' => '生命科学馆'
-                ])->where('num', '<>', NULL)->find()) {
-                    $num[$i] = Db::table('info')->where([
-                        'date' => $date,
-                        'time' => $arr[$i],
-                        'spaceName' => '生命科学馆'
-                    ])->where('num', '<>', NULL)->find();
+                ])->where('num', '<>', '')->find()) {
+                    $num[$i] = 0;
                 } else {
                     $num[$i] = 40 - Db::table('info')->where([
                         'date' => $date,
@@ -174,7 +170,7 @@ class Index
                     'spaceName' => '生命科学馆',
                     'num' => ''
                 ])->count()) {
-                    $num[$i] = 0;
+                    $num[$i] = Request::post('type');
                 } else {
                     $num[$i] = 40;
                 }
