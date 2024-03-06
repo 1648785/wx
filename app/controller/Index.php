@@ -134,7 +134,7 @@ class Index
         $date = Request::post('date');
         $infoSpaceName = Request::post('spaceName');
         if ($infoSpaceName == '生命科学馆') {
-            $this->ticketLife($date,Request::post('type'));
+            $this->ticketLife($date);
         } elseif ($infoSpaceName == '导师工作站') {
             $this->ticketTeacher($date);
         } else {
@@ -142,19 +142,23 @@ class Index
         }
     }
 
-    public function ticketLife($date,$a)
+    public function ticketLife($date)
     {
         $arr = ['14:00-14:30', '14:30-15:00', '15:00-15:30',];
         $num = [];
 
         for ($i = 0; $i < count($arr); $i++) {
-            if($a == '个人预约'){
+            if(Request::post('type') == '个人预约'){
                 if (Db::table('info')->where([
                     'date' => $date,
                     'time' => $arr[$i],
                     'spaceName' => '生命科学馆'
                 ])->where('num', '<>', NULL)->find()) {
-                    $num[$i] = 0;
+                    $num[$i] = Db::table('info')->where([
+                        'date' => $date,
+                        'time' => $arr[$i],
+                        'spaceName' => '生命科学馆'
+                    ])->where('num', '<>', NULL)->find();
                 } else {
                     $num[$i] = 40 - Db::table('info')->where([
                         'date' => $date,
