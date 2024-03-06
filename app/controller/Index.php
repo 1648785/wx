@@ -146,42 +146,36 @@ class Index
     {
         $arr = ['14:00-14:30', '14:30-15:00', '15:00-15:30',];
         $num = [];
-        // for ($i = 0; $i < count($arr); $i++) {
-        //     //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
-        //     if (Db::table('lifeInfoStudentTeam')->where([
-        //         'infoTime' => $arr[$i],
-        //         'infoDate' => $date
-        //     ])->find() ||  Db::table('lifeInfoSocialTeam')->where([
-        //         'infoTime' => $arr[$i],
-        //         'infoDate' => $date
-        //     ])->find()) {
-        //         $num[$i] = 0;
-        //     } else { //否则票数为40 - 校内个人预约 - 校外个人预约
-        //         $num[$i] = 40 - Db::table('lifeInfoStudent')->where([
-        //             'infoTime' => $arr[$i],
-        //             'infoDate' => $date
-        //         ])->count() - Db::table('lifeInfoSocial')->where([
-        //             'infoTime' => $arr[$i],
-        //             'infoDate' => $date
-        //         ])->count();
-        //     }
-        // }
-
+        
         for ($i = 0; $i < count($arr); $i++) {
-            if (Db::table('info')->where([
-                'date' => $date,
-                'time' => $arr[$i],
-                'spaceName' => '生命科学馆'
-            ])->where('num', '<>', '')->find()) {
-                $num[$i] = 0;
-            } else {
-                $num[$i] = 40 - Db::table('info')->where([
+            if(Request::post('type') == '个人预约'){
+                if (Db::table('info')->where([
+                    'date' => $date,
+                    'time' => $arr[$i],
+                    'spaceName' => '生命科学馆'
+                ])->where('num', '<>', '')->find()) {
+                    $num[$i] = 0;
+                } else {
+                    $num[$i] = 40 - Db::table('info')->where([
+                        'date' => $date,
+                        'time' => $arr[$i],
+                        'spaceName' => '生命科学馆',
+                        'num' => ''
+                    ])->count();
+                }
+            }else{
+                if (Db::table('info')->where([
                     'date' => $date,
                     'time' => $arr[$i],
                     'spaceName' => '生命科学馆',
                     'num' => ''
-                ])->count();
+                ])->count()) {
+                    $num[$i] = 0;
+                } else {
+                    $num[$i] = 40;
+                }
             }
+            
         }
         echo json_encode($num);
     }
@@ -190,35 +184,34 @@ class Index
     {
         $arr = ['08:00-09:00', '09:00-10:00', '10:00-11:00', '11:00-12:00', '12:00-13:00', '13:00-14:00', '14:00-15:00', '15:00-16:00', '16:00-17:00', '17:00-18:00', '18:00-19:00', '19:00-20:00', '20:00-21:00'];
         $num = [];
-        // for ($i = 0; $i < count($arr); $i++) {
-        //     //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
-        //     if (Db::table('teacherInfoStudentTeam')->where([
-        //         'infoTime' => $arr[$i],
-        //         'infoDate' => $date
-        //     ])->find()) {
-        //         $num[$i] = 0;
-        //     } else { //否则票数为40 - 校内个人预约 - 校外个人预约
-        //         $num[$i] = 20 - Db::table('teacherInfoStudent')->where([
-        //             'infoTime' => $arr[$i],
-        //             'infoDate' => $date
-        //         ])->count();
-        //     }
-        // }
 
         for ($i = 0; $i < count($arr); $i++) {
-            if (Db::table('info')->where([
-                'date' => $date,
-                'time' => $arr[$i],
-                'spaceName' => '导师工作站'
-            ])->where('num', '<>', '')->find()) {
-                $num[$i] = 0;
-            } else {
-                $num[$i] = 40 - Db::table('info')->where([
+            if(Request::post('type') == '个人预约'){
+                if (Db::table('info')->where([
+                    'date' => $date,
+                    'time' => $arr[$i],
+                    'spaceName' => '导师工作站'
+                ])->where('num', '<>', '')->find()) {
+                    $num[$i] = 0;
+                } else {
+                    $num[$i] = 20 - Db::table('info')->where([
+                        'date' => $date,
+                        'time' => $arr[$i],
+                        'spaceName' => '导师工作站',
+                        'num' => ''
+                    ])->count();
+                }
+            }else{
+                if (Db::table('info')->where([
                     'date' => $date,
                     'time' => $arr[$i],
                     'spaceName' => '导师工作站',
                     'num' => ''
-                ])->count();
+                ])->count()) {
+                    $num[$i] = 0;
+                } else {
+                    $num[$i] = 20;
+                }
             }
         }
         echo json_encode($num);
@@ -228,35 +221,34 @@ class Index
     {
         $arr = ['08:00-09:00', '09:00-10:00', '10:00-11:00', '11:00-12:00', '12:00-13:00', '13:00-14:00', '14:00-15:00', '15:00-16:00', '16:00-17:00', '17:00-18:00', '18:00-19:00', '19:00-20:00', '20:00-21:00'];
         $num = [];
-        // for ($i = 0; $i < count($arr); $i++) {
-        //     //某天某个时间段如果已经被校内人员团体或者被校外人员团体提前预约，那么票数为0
-        //     if (Db::table('activityInfoStudentTeam')->where([
-        //         'infoTime' => $arr[$i],
-        //         'infoDate' => $date
-        //     ])->find()) {
-        //         $num[$i] = 0;
-        //     } else { //否则票数为40 - 校内个人预约 - 校外个人预约
-        //         $num[$i] = 100 - Db::table('activityInfoStudent')->where([
-        //             'infoTime' => $arr[$i],
-        //             'infoDate' => $date
-        //         ])->count();
-        //     }
-        // }
-
+        
         for ($i = 0; $i < count($arr); $i++) {
-            if (Db::table('info')->where([
-                'date' => $date,
-                'time' => $arr[$i],
-                'spaceName' => '多功能活动室'
-            ])->where('num', '<>', '')->find()) {
-                $num[$i] = 0;
-            } else {
-                $num[$i] = 100 - Db::table('info')->where([
+            if(Request::post('type') == '个人预约'){
+                if (Db::table('info')->where([
+                    'date' => $date,
+                    'time' => $arr[$i],
+                    'spaceName' => '多功能活动室'
+                ])->where('num', '<>', '')->find()) {
+                    $num[$i] = 0;
+                } else {
+                    $num[$i] = 100 - Db::table('info')->where([
+                        'date' => $date,
+                        'time' => $arr[$i],
+                        'spaceName' => '多功能活动室',
+                        'num' => ''
+                    ])->count();
+                }
+            }else{
+                if (Db::table('info')->where([
                     'date' => $date,
                     'time' => $arr[$i],
                     'spaceName' => '多功能活动室',
                     'num' => ''
-                ])->count();
+                ])->count()) {
+                    $num[$i] = 0;
+                } else {
+                    $num[$i] = 100;
+                }
             }
         }
         echo json_encode($num);
@@ -282,16 +274,6 @@ class Index
 
     public function getInfo()
     {
-        // $res1 = DB::table('activityInfoStudent')->where('openid', Request::get('openid'))->order('id', 'desc')->select()->toArray();
-        // $res2 = DB::table('activityInfoStudentTeam')->where('openid', Request::get('openid'))->order('id', 'desc')->select()->toArray();
-        // $res3 = DB::table('lifeInfoSocial')->where('openid', Request::get('openid'))->order('id', 'desc')->select()->toArray();
-        // $res4 = DB::table('lifeInfoSocialTeam')->where('openid', Request::get('openid'))->order('id', 'desc')->select()->toArray();
-        // $res5 = DB::table('lifeInfoStudent')->where('openid', Request::get('openid'))->order('id', 'desc')->select()->toArray();
-        // $res6 = DB::table('lifeInfoStudentTeam')->where('openid', Request::get('openid'))->order('id', 'desc')->select()->toArray();
-        // $res7 = DB::table('teacherInfoStudent')->where('openid', Request::get('openid'))->order('id', 'desc')->select()->toArray();
-        // $res8 = DB::table('teacherInfoStudentTeam')->where('openid', Request::get('openid'))->order('id', 'desc')->select()->toArray();
-        // $res = array_merge($res1, $res2, $res3, $res4, $res5, $res6, $res7, $res8);
-        // echo json_encode($res);
         $res = DB::table('info')->where('openid', Request::get('openid'))->order('id', 'desc')->select()->toArray();
         echo json_encode($res);
     }
