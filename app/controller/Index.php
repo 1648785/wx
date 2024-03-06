@@ -172,7 +172,7 @@ class Index
                 'date' => $date,
                 'time' => $arr[$i],
                 'spaceName' => '生命科学馆'
-            ])->where('num', '!=', '')->find()) {
+            ])->where('num', '<>', '')->find()) {
                 $num[$i] = 0;
             } else {
                 $num[$i] = 40 - Db::table('info')->where([
@@ -210,7 +210,7 @@ class Index
                 'date' => $date,
                 'time' => $arr[$i],
                 'spaceName' => '导师工作站'
-            ])->where('num', '!=', '')->find()) {
+            ])->where('num', '<>', '')->find()) {
                 $num[$i] = 0;
             } else {
                 $num[$i] = 40 - Db::table('info')->where([
@@ -248,7 +248,7 @@ class Index
                 'date' => $date,
                 'time' => $arr[$i],
                 'spaceName' => '多功能活动室'
-            ])->where('num', '!=', '')->find()) {
+            ])->where('num', '<>', '')->find()) {
                 $num[$i] = 0;
             } else {
                 $num[$i] = 100 - Db::table('info')->where([
